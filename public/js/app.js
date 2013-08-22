@@ -5,8 +5,9 @@ define([
 	'collections/TodoList',
 	'views/Header',
 	'views/TodoListCompositeView',
-	'views/Footer'
-], function (Marionette, TodoList, Header, TodoListCompositeView, Footer) {
+	'views/Footer',
+	'views/Login'
+], function (Marionette, TodoList, Header, TodoListCompositeView, Footer, Login) {
 	'use strict';
 
 	var app = new Marionette.Application();
@@ -19,18 +20,20 @@ define([
 	var header = new Header(viewOptions);
 	var main = new TodoListCompositeView(viewOptions);
 	var footer = new Footer(viewOptions);
+	var login = new Login(viewOptions);
 
 	app.addRegions({
-		header: '#header',
-		main: '#main',
-		footer: '#footer'
+		header: '#todomvc-header',
+		main: '#todomvc-main',
+		footer: '#todomvc-footer',
+		login: '#login'
 	});
 
 	app.addInitializer(function () {
 		app.header.show(header);
 		app.main.show(main);
 		app.footer.show(footer);
-
+		app.login.show(login);
 		todoList.fetch();
 	});
 

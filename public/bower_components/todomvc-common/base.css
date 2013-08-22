@@ -25,7 +25,7 @@ body {
 	line-height: 1.4em;
 	background: #eaeaea url('bg.png');
 	color: #4d4d4d;
-	width: 550px;
+	width: 960px;
 	margin: 0 auto;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
@@ -83,12 +83,12 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
-#header {
+#todomvc-header {
 	padding-top: 15px;
 	border-radius: inherit;
 }
 
-#header:before {
+#todomvc-header:before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -143,7 +143,7 @@ body {
 	box-shadow: none;
 }
 
-#main {
+#todomvc-main {
 	position: relative;
 	z-index: 2;
 	border-top: 1px dotted #adadad;
@@ -299,7 +299,7 @@ label[for='toggle-all'] {
 	margin-bottom: -1px;
 }
 
-#footer {
+#todomvc-footer {
 	color: #777;
 	padding: 0 15px;
 	position: absolute;
@@ -311,7 +311,7 @@ label[for='toggle-all'] {
 	text-align: center;
 }
 
-#footer:before {
+#todomvc-footer:before {
 	content: '';
 	position: absolute;
 	right: 0;

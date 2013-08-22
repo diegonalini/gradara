@@ -11,6 +11,7 @@ require.config({
 		marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
 		jquery: '../bower_components/jquery/jquery',
 		localStorage: '../bower_components/backbone.localStorage/backbone.localStorage',
+		bootstrap: '../bower_components/bootstrap/bootstrap.min',
 		tpl: 'lib/tpl'
 	},
 
@@ -27,19 +28,36 @@ require.config({
 		marionette: {
 			exports: 'Backbone.Marionette',
 			deps: ['backbone']
-		}
+		},
+		
+		bootstrap: {
+            deps: ["jquery"]
+        }
 	},
 
 	deps: ['jquery', 'underscore']
 });
 
+function loadCss(url) {
+    var link = document.createElement("link");
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.href = url;
+    document.getElementsByTagName("head")[0].appendChild(link);
+}
+
+//loadCss('../bower_components/bootstrap/bootstrap-combined.min.css');
+	
+	
 require([
 	'app',
 	'backbone',
 	'routers/index',
-	'controllers/index'
-], function (app, Backbone, Router, Controller) {
+	'controllers/index', 
+	'bootstrap'
+], function (app, Backbone, Router, Controller, _bootstrap) {
 	'use strict';
+	
 
 	app.start();
 
@@ -47,3 +65,4 @@ require([
 
 	Backbone.history.start();
 });
+

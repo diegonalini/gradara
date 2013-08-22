@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'warden'
 require 'mongo'
 require 'json'
 
