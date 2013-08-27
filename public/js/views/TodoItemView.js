@@ -45,7 +45,7 @@ define([
 		},
 
 		toggle: function () {
-			this.model.toggle().save();
+			this.model.toggle();
 		},
 
 		toggleEditingMode: function () {

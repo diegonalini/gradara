@@ -4,9 +4,11 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Gradara Portal</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 		<link rel="stylesheet" href="bower_components/bootstrap/bootstrap-combined.min.css">
 		<link rel="stylesheet" href="css/custom.css">
+		<link rel="icon" href="http://localhost:9292/favicon.ico" />
 	</head>
 	<body>
 		
@@ -16,18 +18,24 @@
 			</section>
 		</section>
 
-
-		<section id="todoapp">
-			<section id="todomvc-header">
-			</section>
-			<section id="todomvc-main">
-			</section>
-			<footer id="todomvc-footer">
-			</footer>
+		<section id="content">
+			<div class="row-fluid">
+				<div class="span6">
+					<div id="placeholder1"></div>
+					<div id="placeholder2"></div>
+					<div id="placeholder3"></div>
+				</div>
+				<div class="span6">
+					<div id="placeholder4"></div>
+					<div id="placeholder5"></div>
+					<div id="placeholder6"></div>
+				</div>
+			</div>
 		</section>
+
+
 		<footer id="info">
-			<p>Double-click to edit a todo</p>
-			<p>Created by <a href="http://github.com/jsoverson">Jarrod Overson</a></p>
+			<p>Created by dienal</p>
 		</footer>
 		<script src="bower_components/todomvc-common/base.js"></script>
 		<script data-main="js/main" src="bower_components/requirejs/require.js"></script>

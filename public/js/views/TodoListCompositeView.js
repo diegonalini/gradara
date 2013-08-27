@@ -35,7 +35,7 @@ define([
 				return lastModel && thisModel.get('completed');
 			}, true);
 
-			this.ui.toggle.prop('checked', allCompleted);
+			//this.ui.toggle.prop('checked', allCompleted);
 		},
 
 		onToggleAllClick: function (event) {
