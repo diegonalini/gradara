@@ -19,7 +19,6 @@ define(['marionette',
 		},
 
 		onRender : function() {
-			console.log ('AAA');
 			var todoList = new TodoList();
 
 			todoList.fetch();
@@ -35,9 +34,7 @@ define(['marionette',
 			this.header.show(header);
 			this.main.show(main);
 			this.footer.show(footer);
-			//this.todoHeader.show(new ActiveCount({ collection: this.collection }));
-			//this.todoFooter.show(new CompletedCount({ collection: this.collection }));
-
+	
 			this.listenTo(todoList, 'all', function() {
 				this.main.$el.toggle(todoList.length > 0);
 				this.footer.$el.toggle(todoList.length > 0);

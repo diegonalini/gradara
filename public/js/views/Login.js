@@ -2,17 +2,34 @@
 
 define([
 	'marionette',
-	'templates'
-], function (Marionette, templates) {
+	'templates',
+	'views/LoginLogin',
+	'views/LoginLogged'
+], function (Marionette, templates, LoginLogin, LoginLogged) {
 	'use strict';
 
-	return Marionette.ItemView.extend({
+	return Marionette.Layout.extend({
 		template: templates.login,
 
-		events: {
-			
-		}
+		regions : {
+			placeholder : '#placeholderLogin'
+		},
 
+
+		onRender : function() {
+			this.placeholder.show(new LoginLogin());
+			var that=this;
+			
+			app.vent.on('login:login:clicked', function() {
+				console.log(this);
+				that.placeholder.show(new LoginLogged());
+			});
+			
+			app.vent.on('login:logout:clicked', function() {
+				console.log(this);
+				that.placeholder.show(new LoginLogin());
+			});
+		}
 		
 	});
 });

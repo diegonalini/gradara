@@ -9,6 +9,8 @@ define(function (require) {
 		footer: require('tpl!templates/todoFooter.tmpl'),
 		header: require('tpl!templates/todoHeader.tmpl'),
 		login: require('tpl!templates/login.tmpl'),
+		loginLogin: require('tpl!templates/loginLogin.tmpl'),
+		loginLogged: require('tpl!templates/loginLogged.tmpl'),
 		todo: require('tpl!templates/todo.tmpl'),
 		tableExG: require('tpl!templates/tableExG.tmpl'),
 		tableExR: require('tpl!templates/tableExR.tmpl')
