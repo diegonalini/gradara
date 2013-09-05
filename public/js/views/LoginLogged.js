@@ -24,6 +24,11 @@ define([
 
 		onLogoutClick: function (e) {
 			e.stopPropagation();
+			e.preventDefault();
+			$.getJSON('/logout/12345', function(data) {
+				console.log("logged out");
+      			window.app.user.set({islogged: false, token: '0', username: ''});
+      		});
 			window.app.vent.trigger('login:logout:clicked');
 		},
 		

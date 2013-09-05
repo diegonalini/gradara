@@ -4,8 +4,9 @@ define([
 	'marionette',
 	'views/Login',
 	'views/Todo',
-	'views/TableExample'
-], function (Marionette, Login, Todo, TableExample) {
+	'views/TableExample',
+	'models/User'
+], function (Marionette, Login, Todo, TableExample, User) {
 	'use strict';
 
 	var app = new Marionette.Application();
@@ -22,5 +23,6 @@ define([
 		app.tableExample.show(new TableExample());
 	});
 
+	app.user=new User();
 	return window.app = app;
 });

@@ -2,8 +2,9 @@
 
 define([
 	'marionette',
-	'templates'
-], function (Marionette, templates) {
+	'templates',
+	'models/User'
+], function (Marionette, templates, User) {
 	'use strict';
 
 
@@ -22,10 +23,21 @@ define([
 			'click #login-button' : 'onLoginClick'
 		},
 
+
 		onLoginClick: function (e) {
 			e.stopPropagation();
+			e.preventDefault();
+			$.getJSON('/login/pippo/b', function(data) {
+				$.each(data, function(key, val) {
+					if (key=='username') window.app.user.set({ username: val});
+					if (key=='token') window.app.user.set({ token: val});
+					if (key=='language') window.app.user.set({ language: val});
+				});
+			});
 			window.app.vent.trigger('login:login:clicked');
 		},
+		
+
 
 		preventClose: function (e) {
 			e.stopPropagation();

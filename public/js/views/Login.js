@@ -4,8 +4,10 @@ define([
 	'marionette',
 	'templates',
 	'views/LoginLogin',
-	'views/LoginLogged'
-], function (Marionette, templates, LoginLogin, LoginLogged) {
+	'views/LoginLogged',
+	'jqueryTools',
+	'jqueryMigrate'
+], function (Marionette, templates, LoginLogin, LoginLogged, tools, migrate) {
 	'use strict';
 
 	return Marionette.Layout.extend({
@@ -17,7 +19,10 @@ define([
 
 
 		onRender : function() {
-			this.placeholder.show(new LoginLogin());
+			if(window.app.user.get('islogged')) 
+				this.placeholder.show(new LoginLogged());
+			else 
+				this.placeholder.show(new LoginLogin());
 			var that=this;
 			
 			app.vent.on('login:login:clicked', function() {

@@ -3,8 +3,9 @@ require 'sinatra'
 require 'warden'
 require 'mongo'
 require 'json'
+#use Rack::Session::Pool, :expire_after => 1800
 
-DB = Mongo::Connection.new.db("mydb", :pool_size => 5, :timeout => 5)
+DB = Mongo::Connection.new.db("gradaradb", :pool_size => 5, :timeout => 5)
 
 get '/' do
   #haml :index, :attr_wrapper => '"', :locals => {:title => 'haii'}
@@ -13,6 +14,25 @@ end
 
 get '/todo' do
   haml :todo, :attr_wrapper => '"', :locals => {:title => 'MongoDB Backed TODO App'}
+end
+
+
+get '/login/:username/:password' do
+  # env['rack.session'][:token]="Hello Rack"
+  if params[:username] == 'pippo' && params[:password] == 'b' then 
+    return {:token => '12345', :username => params[:username]}.to_json
+  end
+  return {:token => '0', :username =>''}.to_json
+end
+
+get '/logout/:token' do
+  session.clear
+  return {:token => '0', :username =>''}.to_json
+end 
+
+get '/islogged/:token' do
+  if (params[:token] == '12345') then return {:valid => true}.to_json end
+  return {:valid => false}.to_json
 end
 
 get '/api/:thing' do
