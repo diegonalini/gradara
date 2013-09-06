@@ -66,7 +66,7 @@ define([
 		cycle: function () {
 			console.log(this.toJSON());
 			$.getJSON('/islogged/'+this.get('token'), function(data) {
-				try{$(".modal").overlay().close();}
+				try{/*$(".modal").overlay().close();*/ $(".fadeMe").hide();}
 				catch(e){}
 				$.each(data, function(key, val) {
 					if (key=='valid') if (val==true) window.app.user.set({islogged: true}); else {
@@ -75,15 +75,16 @@ define([
 					if (key=='valid')console.log(val);
 				});
 			}).error(function() { 
-				$(".modal").overlay({
+				$(".fadeMe").show();
+				/*$(".modal").overlay({
 	      			// some mask tweaks suitable for modal dialogs
 				      mask: {
 				        color: '#ebecff',
-				        loadSpeed: 200,
-				        opacity: 0.9
+				        loadSpeed: 0,
+				        opacity: 1
 				      },
 				      closeOnClick: false
-				  }).load();
+				  }).load();*/
 			 });
 		}
 	});
