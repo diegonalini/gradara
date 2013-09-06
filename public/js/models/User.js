@@ -11,23 +11,38 @@ define([
 		
 		defaults: {
 			id: 1,
+			
 			username: '',
 			token: '0',
 			language: 'en',
 			
-			network_link: true,
-			islogged: false 
+			networkLink: true,
+			isLogged: false
 		},
 		
 		update: function () {
-	        console.log("updated User ");
-	        this.save();
+	        console.log("User.update");
+	        //this.save();
 	    },
+	    
+	    updateLoggedState: function () {
+	        //console.log("User.updateLoggedState "+JSON.stringify(window.app.user));
+	        	if (window.app.user.get('isLogged')){
+	        		Backbone.trigger('login');
+	        	}else{
+	        		Backbone.trigger('logout');
+	        	}
+	        window.app.user.save();
+	        //console.log("User.updateLoggedState 2 "+JSON.stringify(window.app.user));
+	    },
+
 		    
 		initialize: function () {
 			this.fetch();
 			//_.bindAll(this, "update");
-			this.on('change', this.update);
+			this.on("change", this.updateLoggedState);
+			//this.on('change', this.update);
+			
 			
 			/*$(function() {
 			    $.ajaxSetup({
@@ -64,28 +79,36 @@ define([
 		},
 
 		cycle: function () {
-			console.log(this.toJSON());
-			$.getJSON('/islogged/'+this.get('token'), function(data) {
-				try{/*$(".modal").overlay().close();*/ $(".fadeMe").hide();}
+			//console.log("User.cycle "+JSON.stringify(window.app.user));
+			$.getJSON('/islogged/'+window.app.user.get('token'), function(data) {
+				try{
+					
+				}
 				catch(e){}
 				$.each(data, function(key, val) {
-					if (key=='valid') if (val==true) window.app.user.set({islogged: true}); else {
-						window.app.user.set({islogged: false, token: '0', username: ''});
+					//console.log("User.cycle 2 "+val+" "+JSON.stringify(window.app.user));
+					if (key=='valid'){ 
+						if(!window.app.user.get('networkLink')){
+							$(".fadeMe").hide();
+							window.app.user.set({networkLink: true});
+						}
+						if (val==true) {
+							if (!window.app.user.get('isLogged')){
+								window.app.user.set({isLogged: true});
+							}
+						} 
+						else {
+							if (window.app.user.get('isLogged')){
+								window.app.user.set({isLogged: false, token: '0', username: ''});
+							}
+						}
 					}
-					if (key=='valid')console.log(val);
+					//console.log("User.cycle 4 "+val+" "+JSON.stringify(window.app.user));
 				});
 			}).error(function() { 
+				window.app.user.set({networkLink: false});
 				$(".fadeMe").show();
-				/*$(".modal").overlay({
-	      			// some mask tweaks suitable for modal dialogs
-				      mask: {
-				        color: '#ebecff',
-				        loadSpeed: 0,
-				        opacity: 1
-				      },
-				      closeOnClick: false
-				  }).load();*/
-			 });
+			});
 		}
 	});
 });

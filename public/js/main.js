@@ -10,8 +10,6 @@ require.config({
 		backbone: '../bower_components/backbone/backbone',
 		marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
 		jquery: '../bower_components/jquery/jquery',
-		jqueryTools: '../bower_components/jquery/jquery.tools.min',
-		jqueryMigrate: '../bower_components/jquery/jquery-migrate-1.2.1.min',
 		localStorage: '../bower_components/backbone.localStorage/backbone.localStorage',
 		bootstrap: '../bower_components/bootstrap/bootstrap.min',
 		tpl: 'lib/tpl'
@@ -33,14 +31,6 @@ require.config({
 		},
 		
 		bootstrap: {
-            deps: ["jquery"]
-        },
-		
-		jqueryTools: {
-            deps: ["jquery", "jqueryMigrate"]
-        },
-		
-		jqueryMigrate: {
             deps: ["jquery"]
         }
 	},

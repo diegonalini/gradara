@@ -27,14 +27,24 @@ define([
 		onLoginClick: function (e) {
 			e.stopPropagation();
 			e.preventDefault();
+			//console.log("LoginLogin loginclick "+JSON.stringify(window.app.user));
 			$.getJSON('/login/pippo/b', function(data) {
+				var newVals={};
 				$.each(data, function(key, val) {
-					if (key=='username') window.app.user.set({ username: val});
-					if (key=='token') window.app.user.set({ token: val});
-					if (key=='language') window.app.user.set({ language: val});
+					if (key=='username') newVals[key]=val;
+					//window.app.user.set({ username: val});
+					if (key=='token')  newVals[key]=val;
+					//window.app.user.set({ token: val});
+					if (key=='language')  newVals[key]=val;
+					//window.app.user.set({ language: val});
 				});
+				 newVals['isLogged']=true;
+				//window.app.user.set({ isLogged: true});
+				
+				window.app.user.set(newVals);
+				//console.log("LoginLogin loginclick 2 (setted isLogged true) "+JSON.stringify(window.app.user));
 			});
-			window.app.vent.trigger('login:login:clicked');
+			//Backbone.trigger('login:login:clicked');
 		},
 		
 

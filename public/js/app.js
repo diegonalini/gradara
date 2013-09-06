@@ -24,5 +24,6 @@ define([
 	});
 
 	app.user=new User();
+	//console.log("INIZ "+JSON.stringify(app.user));
 	return window.app = app;
 });
