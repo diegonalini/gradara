@@ -12,6 +12,7 @@ define(function (require) {
 		loginLogin: require('tpl!templates/loginLogin.tmpl'),
 		loginLogged: require('tpl!templates/loginLogged.tmpl'),
 		todo: require('tpl!templates/todo.tmpl'),
+		flash: require('tpl!templates/flash.tmpl'),
 		tableExG: require('tpl!templates/tableExG.tmpl'),
 		tableExR: require('tpl!templates/tableExR.tmpl')
 		

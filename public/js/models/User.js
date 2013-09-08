@@ -29,8 +29,10 @@ define([
 	        //console.log("User.updateLoggedState "+JSON.stringify(window.app.user));
 	        	if (window.app.user.get('isLogged')){
 	        		Backbone.trigger('login');
+	        		Backbone.trigger('flash:success','&nbsp;Successfully logged in');
 	        	}else{
 	        		Backbone.trigger('logout');
+	        		Backbone.trigger('flash:success','&nbsp;Successfully logged out');
 	        	}
 	        window.app.user.save();
 	        //console.log("User.updateLoggedState 2 "+JSON.stringify(window.app.user));

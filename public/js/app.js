@@ -4,15 +4,17 @@ define([
 	'marionette',
 	'views/Login',
 	'views/Todo',
+	'views/Flash',
 	'views/TableExample',
 	'models/User'
-], function (Marionette, Login, Todo, TableExample, User) {
+], function (Marionette, Login, Todo, Flash, TableExample, User) {
 	'use strict';
 
 	var app = new Marionette.Application();
 
 	app.addRegions({
 		login: '#login',
+		flash: '#flash',
 		todo: '#placeholder1',
 		tableExample: '#placeholder4'
 	});
@@ -20,6 +22,7 @@ define([
 	app.addInitializer(function () {
 		app.login.show(new Login());
 		app.todo.show(new Todo());
+		app.flash.show(new Flash());
 		app.tableExample.show(new TableExample());
 	});
 
