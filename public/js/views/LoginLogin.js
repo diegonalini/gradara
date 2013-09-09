@@ -28,7 +28,11 @@ define([
 			e.stopPropagation();
 			e.preventDefault();
 			//console.log("LoginLogin loginclick "+JSON.stringify(window.app.user));
-			$.getJSON('/login/pippo/b', function(data) {
+			var user=$('#username-field').val();
+			var pwd=$('#password-field').val();
+			if (user=='') user='nil';
+			if (pwd=='') pwd='nil';
+			$.getJSON('/login/'+user +'/'+pwd +'', function(data) {
 				var newVals={};
 				$.each(data, function(key, val) {
 					if (key=='username') newVals[key]=val;
@@ -36,9 +40,11 @@ define([
 					if (key=='token')  newVals[key]=val;
 					//window.app.user.set({ token: val});
 					if (key=='language')  newVals[key]=val;
+					if (key=='role')  newVals[key]=val;
 					//window.app.user.set({ language: val});
 				});
-				 newVals['isLogged']=true;
+				if(newVals['username']!='') newVals['isLogged']=true;
+				else Backbone.trigger('flash:error','Login error');
 				//window.app.user.set({ isLogged: true});
 				
 				window.app.user.set(newVals);

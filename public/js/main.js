@@ -58,6 +58,9 @@ require([
 ], function (app, Backbone, Router, Controller, _bootstrap) {
 	'use strict';
 	
+$.ajaxSetup (
+   {headers: {'ACCESS_TOKEN':"0"}}
+);
 
 	app.start();
 

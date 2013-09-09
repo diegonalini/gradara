@@ -26,7 +26,7 @@ define([
 			e.stopPropagation();
 			e.preventDefault();
 			//console.log("LoginLogout logoutclick "+JSON.stringify(window.app.user));
-			$.getJSON('/logout/12345', function(data) {
+			$.getJSON('/logout/'+window.app.user.get('token'), function(data) {
 				console.log("logged out");
       			window.app.user.set({isLogged: false, token: '0', username: ''});
       		});

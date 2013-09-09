@@ -15,6 +15,7 @@ define([
 			username: '',
 			token: '0',
 			language: 'en',
+			role: 'guest',
 			
 			networkLink: true,
 			isLogged: false
@@ -26,16 +27,17 @@ define([
 	    },
 	    
 	    updateLoggedState: function () {
-	        //console.log("User.updateLoggedState "+JSON.stringify(window.app.user));
 	        	if (window.app.user.get('isLogged')){
 	        		Backbone.trigger('login');
-	        		Backbone.trigger('flash:success','&nbsp;Successfully logged in');
+	        		Backbone.trigger('flash:success','Successfully logged in');
 	        	}else{
 	        		Backbone.trigger('logout');
-	        		Backbone.trigger('flash:success','&nbsp;Successfully logged out');
+	        		Backbone.trigger('flash:success','Successfully logged out');
 	        	}
+	        	$.ajaxSetup (
+   					{headers: {'ACCESS_TOKEN':window.app.user.get('token')}}
+				);
 	        window.app.user.save();
-	        //console.log("User.updateLoggedState 2 "+JSON.stringify(window.app.user));
 	    },
 
 		    
@@ -101,7 +103,7 @@ define([
 						} 
 						else {
 							if (window.app.user.get('isLogged')){
-								window.app.user.set({isLogged: false, token: '0', username: ''});
+								window.app.user.set({isLogged: false, token: '0', username: '', role: 'guest'});
 							}
 						}
 					}

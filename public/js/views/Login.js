@@ -35,7 +35,9 @@ define([
 				this.placeholder.show(new LoginLogged());
 			else 
 				this.placeholder.show(new LoginLogin());
-	
+			$.ajaxSetup (
+   				{headers: {'ACCESS_TOKEN':window.app.user.get('token')}}
+			);
 		}
 		
 	});
