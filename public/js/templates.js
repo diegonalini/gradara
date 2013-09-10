@@ -14,7 +14,8 @@ define(function (require) {
 		todo: require('tpl!templates/todo.tmpl'),
 		flash: require('tpl!templates/flash.tmpl'),
 		tableExG: require('tpl!templates/tableExG.tmpl'),
-		tableExR: require('tpl!templates/tableExR.tmpl')
+		tableExR: require('tpl!templates/tableExR.tmpl'),
+		camera: require('tpl!templates/camera.tmpl')
 		
 	};
 });

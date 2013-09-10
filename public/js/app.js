@@ -6,8 +6,9 @@ define([
 	'views/Todo',
 	'views/Flash',
 	'views/TableExample',
+	'views/Camera',
 	'models/User'
-], function (Marionette, Login, Todo, Flash, TableExample, User) {
+], function (Marionette, Login, Todo, Flash, TableExample, Camera, User) {
 	'use strict';
 
 	var app = new Marionette.Application();
@@ -16,7 +17,8 @@ define([
 		login: '#login',
 		flash: '#flash',
 		todo: '#placeholder1',
-		tableExample: '#placeholder4'
+		tableExample: '#placeholder4',
+		camera: '#placeholder5'
 	});
 
 	app.addInitializer(function () {
@@ -24,6 +26,7 @@ define([
 		app.todo.show(new Todo());
 		app.flash.show(new Flash());
 		app.tableExample.show(new TableExample());
+		app.camera.show(new Camera());
 	});
 
 	app.user=new User();
