@@ -7,6 +7,20 @@ require 'json'
 
 DB = Mongo::Connection.new.db("gradaradb", :pool_size => 5, :timeout => 5)
 
+accessMap={ 'guest'=>{ 'todos'=>{ 'get'=>true }},
+            'basic'=>{},
+            'editor'=>{},
+            'admin'=>{}}
+
+def accessControl(role, coll, op)
+  begin
+    p accessMap[role]
+    return true if accessMap[role][coll][op]==true
+  rescue 
+  end
+  return false
+end
+
 get '/' do
   #haml :index, :attr_wrapper => '"', :locals => {:title => 'haii'}
   send_file File.expand_path('index.html', settings.public_folder)
@@ -21,6 +35,7 @@ get '/login/:username/:password' do
   if (user!=nil)
     doc={}
     doc['username']=params[:username]
+    doc['role']=user[:role]
     doc['expires']=Time.new().to_i+300
     token=DB.collection('tokens').insert(doc)
     return {:token => token.to_s, :username => params[:username], :role => user['role']}.to_json
@@ -42,8 +57,13 @@ get '/islogged/:token' do
 end
 
 get '/api/:thing' do
-  token=env['HTTP_ACCESS_TOKEN']
-  DB.collection(params[:thing]).find.to_a.map{|t| from_bson_id(t)}.to_json
+  role='guest'
+  begin
+    role=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']))[:role]
+  rescue 
+  end
+  allow=accessControl(role, params[:thing], 'GET')
+  DB.collection(params[:thing]).find.to_a.map{|t| from_bson_id(t)}.to_json if allow
 end
 
 get '/api/:thing/:id' do
