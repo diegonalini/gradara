@@ -6,17 +6,16 @@ require.config({
 	//urlArgs: "bust=v2",
 	
 	paths: {
-		underscore: '../bower_components/underscore/underscore',
-		backbone: '../bower_components/backbone/backbone',
-		marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
-		jquery: '../bower_components/jquery/jquery',
-		jqueryold: '../bower_components/jquery/jqueryold.min',
+		underscore: '../bower_components/underscore/underscore-min',
+		backbone: '../bower_components/backbone/backbone-min',
+		marionette: '../bower_components/backbone.marionette/lib/backbone.marionette.min',
+		jquery: '../bower_components/jquery/jquery-1.10.2.min',
 		localStorage: '../bower_components/backbone.localStorage/backbone.localStorage',
 		bootstrap: '../bower_components/bootstrap/bootstrap.min',
 		tpl: 'lib/tpl',
-		camera: '../bower_components/slideshow/camera.min',
+		camera: '../bower_components/slideshow/camera',
 		jqueryeasing: '../bower_components/slideshow/jquery.easing.1.3',
-		jquerymobile: '../bower_components/slideshow/jquery.mobile.customized.min'
+		jquerymobile: '../bower_components/jquery/jquery.mobile-1.3.2.min'
 	},
 
 	shim: {
@@ -38,10 +37,9 @@ require.config({
             deps: ["jquery"]
         },
         
-        jqueryeasing: ["jquerymobile"],
-
-		jquerymobile: ["jqueryold"],
-
+        
+		jquerymobile: ["jquery"],
+		jqueryeasing: ["jquerymobile"],
 		camera: ["jqueryeasing"]
 	},
 

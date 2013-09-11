@@ -740,7 +740,7 @@
 		}
 		
 	
-		$(document).on('.camera_stop',camera_thumbs_wrap,'click',function(){
+		$(document).on('click','.camera_stop',camera_thumbs_wrap,function(){
 			autoAdv = false;
 			elem.addClass('paused');
 			if($('.camera_stop',camera_thumbs_wrap).length){
@@ -756,7 +756,7 @@
 			}
 		});
 	
-		$(document).on('.camera_play',camera_thumbs_wrap,'click',function(){
+		$(document).on('click','.camera_play',camera_thumbs_wrap,function(){
 			autoAdv = true;
 			elem.removeClass('paused');
 			if($('.camera_play',camera_thumbs_wrap).length){
