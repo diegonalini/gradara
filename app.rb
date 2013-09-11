@@ -7,14 +7,13 @@ require 'json'
 
 DB = Mongo::Connection.new.db("gradaradb", :pool_size => 5, :timeout => 5)
 
-accessMap={ 'guest'=>{ 'todos'=>{ 'get'=>true }},
+$accessMap={ 'guest'=>{ 'todos'=>{ 'GET'=>true }},
             'basic'=>{},
             'editor'=>{},
             'admin'=>{}}
 
 def accessControl(role, coll, op)
   begin
-    p accessMap[role]
     return true if accessMap[role][coll][op]==true
   rescue 
   end
