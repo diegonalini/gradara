@@ -35,6 +35,12 @@ define(['marionette',
 			this.main.show(main);
 			this.footer.show(footer);
 	
+			this.listenTo(window.app.user, 'change:isLogged', function() {
+				todoList.fetch();
+				this.render();
+				console.log("Todo LISTENTO User");
+			});
+	
 			this.listenTo(todoList, 'all', function() {
 				this.main.$el.toggle(todoList.length > 0);
 				this.footer.$el.toggle(todoList.length > 0);
@@ -42,7 +48,6 @@ define(['marionette',
 
 			app.vent.on('todoList:filter', function(filter) {
 				footer.updateFilterSelection(filter);
-
 				document.getElementById('todoapp').className = 'filter-' + (filter === '' ? 'all' : filter);
 			});
 

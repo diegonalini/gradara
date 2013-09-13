@@ -6,7 +6,7 @@ define(function (require) {
 	return {
 		todoItemView: require('tpl!templates/todoItemView.tmpl'),
 		todosCompositeView: require('tpl!templates/todoListCompositeView.tmpl'),
-		footer: require('tpl!templates/todoFooter.tmpl'),
+		todoFooter: require('tpl!templates/todoFooter.tmpl'),
 		header: require('tpl!templates/todoHeader.tmpl'),
 		login: require('tpl!templates/login.tmpl'),
 		loginLogin: require('tpl!templates/loginLogin.tmpl'),

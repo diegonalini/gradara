@@ -9,7 +9,7 @@ define([
 	'use strict';
 
 	return Marionette.Layout.extend({
-		template: templates.footer,
+		template: templates.todoFooter,
 
 		regions: {
 			activeCount: '#todo-count',

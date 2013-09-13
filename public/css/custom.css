@@ -6,7 +6,9 @@
 }
 
 
-
+.hide{
+	display : none;
+}
 
 .bonelet{
 	position:relative;

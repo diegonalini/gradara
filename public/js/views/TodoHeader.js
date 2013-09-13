@@ -17,6 +17,10 @@ define([
 			'keypress #new-todo': 'onInputKeypress'
 		},
 
+		onRender: function() {
+  		  if(!window.app.user.get('isLogged')) this.ui.input.addClass('hide');
+    	},
+
 		onInputKeypress: function (event) {
 			var ENTER_KEY = 13;
 			var todoText = this.ui.input.val().trim();

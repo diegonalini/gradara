@@ -21,10 +21,10 @@ define([
 			isLogged: false
 		},
 		
-		update: function () {
+		/*update: function () {
 	        console.log("User.update");
 	        //this.save();
-	    },
+	    },*/
 	    
 	    updateLoggedState: function () {
 	        	if (window.app.user.get('isLogged')){
@@ -44,7 +44,7 @@ define([
 		initialize: function () {
 			this.fetch();
 			//_.bindAll(this, "update");
-			this.on("change", this.updateLoggedState);
+			this.on("change:isLogged", this.updateLoggedState);
 			//this.on('change', this.update);
 			
 			

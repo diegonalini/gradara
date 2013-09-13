@@ -13,7 +13,7 @@ require.config({
 		localStorage: '../bower_components/backbone.localStorage/backbone.localStorage',
 		bootstrap: '../bower_components/bootstrap/bootstrap.min',
 		tpl: 'lib/tpl',
-		camera: '../bower_components/slideshow/camera',
+		camera: '../bower_components/slideshow/camera.min',
 		jqueryeasing: '../bower_components/slideshow/jquery.easing.1.3',
 		jquerymobile: '../bower_components/jquery/jquery.mobile-1.3.2.min'
 	},
