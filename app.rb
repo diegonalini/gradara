@@ -3,7 +3,7 @@ require 'sinatra'
 require 'warden'
 require 'mongo'
 require 'json'
-#use Rack::Session::Pool, :expire_after => 1800
+require 'sinatra/security'
 
 DB = Mongo::Connection.new.db("gradaradb", :pool_size => 5, :timeout => 5)
 
@@ -20,6 +20,13 @@ def accessControl(role, coll, op)
   return 'false'
 end
 
+def extendSession(token)
+  begin
+    DB.collection('tokens').update({'_id' => to_bson_id(token)}, {'$set' => {'expires' => (Time.new().to_i+1800)} })
+  rescue 
+  end
+end
+
 get '/' do
   #haml :index, :attr_wrapper => '"', :locals => {:title => 'haii'}
   send_file File.expand_path('index.html', settings.public_folder)
@@ -31,9 +38,9 @@ end
 get '/login/:username/:password' do
   # env['rack.session'][:token]="Hello Rack"
   if (DB.collection('users').find({ role: 'admin'}).count == 0)
-    DB.collection('users').insert({username: 'admin', password: 'test', role:'admin'})
+    DB.collection('users').insert({username: 'admin', password: Sinatra::Security::Password::Hashing.encrypt('test', '123456789012'), role:'admin'})
   end
-  user = DB.collection('users').find_one({ username: params[:username], password: params[:password]})
+  user = DB.collection('users').find_one({ username: params[:username], password: Sinatra::Security::Password::Hashing.encrypt(params[:password], '123456789012') })
   if (user!=nil)
     doc={}
     doc['username']=params[:username]
@@ -71,9 +78,10 @@ get '/api/:thing' do
   rescue 
   end
   allow=accessControl(role, params[:thing], 'GET')
+  extendSession(params[:token]) if allow!='false'
   return DB.collection(params[:thing]).find.to_a.map{|t| from_bson_id(t)}.to_json if allow=='true'
   return DB.collection(params[:thing]).find("username" => username).to_a.map{|t| from_bson_id(t)}.to_json if allow=='self'
-  return {}.to_json
+  #return {}.to_json
 end
 
 get '/api/:thing/:id' do
@@ -86,6 +94,7 @@ get '/api/:thing/:id' do
   rescue 
   end
   allow=accessControl(role, params[:thing], 'GET')
+  extendSession(params[:token]) if allow!='false'
   return from_bson_id(DB.collection(params[:thing]).find_one(to_bson_id(params[:id]))).to_json if allow=='true'
   if allow=='self'
     o=from_bson_id(DB.collection(params[:thing]).find_one(to_bson_id(params[:id])))
@@ -105,6 +114,7 @@ post '/api/:thing' do
   end
   allow=accessControl(role, params[:thing], 'POST')
   return {}.to_json if username=='' || allow=='false'
+  extendSession(params[:token])
   o=JSON.parse(request.body.read.to_s)
   o[:username]=username if allow=='self'
   oid = DB.collection(params[:thing]).insert(o)
@@ -122,6 +132,7 @@ delete '/api/:thing/:id' do
   end
   allow=accessControl(role, params[:thing], 'DELETE')
   return {}.to_json if username=='' || allow=='false'
+  extendSession(params[:token])
   return DB.collection(params[:thing]).remove({'_id' => to_bson_id(params[:id])}).to_json if allow=='true'
   return DB.collection(params[:thing]).remove({'_id' => to_bson_id(params[:id]), 'username' => username}).to_json if allow=='self'
 end
@@ -137,6 +148,7 @@ put '/api/:thing/:id' do
   end
   allow=accessControl(role, params[:thing], 'PUT')
   return {}.to_json if username=='' || allow=='false'
+  extendSession(params[:token])
   DB.collection(params[:thing]).update({'_id' => to_bson_id(params[:id])}, {'$set' => JSON.parse(request.body.read.to_s).reject{|k,v| k == '_id'}}).to_s if allow=='true'
   DB.collection(params[:thing]).update({'_id' => to_bson_id(params[:id]), 'username' => username}, {'$set' => JSON.parse(request.body.read.to_s).reject{|k,v| k == '_id'}}).to_s if allow=='self'
 end
