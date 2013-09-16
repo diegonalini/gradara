@@ -43,7 +43,6 @@ define([
 				$.getJSON('/changepwd/'+old+'/'+pwd1, function(data) {
 					if (data['updatedExisting'])	Backbone.trigger('flash:success','Password changed');
 					else Backbone.trigger('flash:error','Error changing password');
-					console.log(data);
       			});
 				
 			});
