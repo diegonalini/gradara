@@ -7,8 +7,47 @@
     </a>
     <ul class="dropdown-menu">
       <form>
+        <li>
+        
+        	<a href="#myModal" id="changepwd-button" role="button" class="btn" data-toggle="modal">Change password</a>
+        	
+        </li>
         <li><button id="logout-button" type="submit" class="btn btn-primary">Logout</button></li>
       </form>
     </ul>
 </div>
 </form>
+
+
+			<div id="changepwdModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        		<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        			<h3>Change password</h3>
+        		</div>
+        		<form>
+        		<div class="modal-body">
+        			<li>
+			        	<div class="input-prepend">
+							<span class="add-on">old pwd</span>
+							<input id="oldpassword-field"  type="password" class="input-medium search-query">
+			    		</div>
+			    	</li>
+					<li>
+			        	<div class="input-prepend">
+							<span class="add-on">new pwd</span>
+							<input id="password1-field"  type="password" class="input-medium search-query">
+			    		</div>
+			    	</li>
+			    	<li>
+			    		<div class="input-prepend">
+							<span class="add-on">repeat</span>
+							<input id="password2-field"  type="password" class="input-medium search-query">
+			    		</div>
+			    	</li>
+        		</div>
+        		<div class="modal-footer">
+        			<a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+        			<button id="changepwd-submit" class="btn btn-primary">Change</button>
+        		</div>
+        		</form>
+        	</div>

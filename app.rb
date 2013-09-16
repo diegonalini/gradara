@@ -53,9 +53,19 @@ get '/login/:username/:password' do
 end
 
 get '/logout/:token' do
-  session.clear
   DB.collection('tokens').remove('_id' => to_bson_id(params[:token]))
   return {:token => '0', :username =>'', :role => 'guest'}.to_json
+end 
+
+get '/changepwd/:oldpwd/:pwd' do
+  username=''
+  begin
+    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']), "expires" => {"$gt" => Time.new().to_i})
+    username=token["username"]
+    return DB.collection('users').update({'username' => username, 'password' => Sinatra::Security::Password::Hashing.encrypt(params[:oldpwd], '123456789012')}, {'$set' => {'password' => Sinatra::Security::Password::Hashing.encrypt(params[:pwd], '123456789012')}}).to_json    if (token!=nil && Time.new().to_i<token['expires'])
+  rescue 
+  end
+  return {}.to_json
 end 
 
 get '/islogged/:token' do
@@ -72,7 +82,7 @@ get '/api/:thing' do
   role='guest'
   username=''
   begin
-    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']))
+    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']), "expires" => {"$gt" => Time.new().to_i})
     role=token["role"]
     username=token["username"]
   rescue 
@@ -88,7 +98,7 @@ get '/api/:thing/:id' do
   role='guest'
   username=''
   begin
-    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']))
+    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']), "expires" => {"$gt" => Time.new().to_i})
     role=token["role"]
     username=token["username"]
   rescue 
@@ -107,7 +117,7 @@ post '/api/:thing' do
   role='guest'
   username=''
   begin
-    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']))
+    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']), "expires" => {"$gt" => Time.new().to_i})
     role=token["role"]
     username=token["username"]
   rescue 
@@ -125,7 +135,7 @@ delete '/api/:thing/:id' do
   role='guest'
   username=''
   begin
-    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']))
+    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']), "expires" => {"$gt" => Time.new().to_i})
     role=token["role"]
     username=token["username"]
   rescue 
@@ -141,7 +151,7 @@ put '/api/:thing/:id' do
   role='guest'
   username=''
   begin
-    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']))
+    token=DB.collection('tokens').find_one('_id' => to_bson_id(env['HTTP_ACCESS_TOKEN']), "expires" => {"$gt" => Time.new().to_i})
     role=token["role"]
     username=token["username"]
   rescue 
