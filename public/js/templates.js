@@ -15,7 +15,8 @@ define(function (require) {
 		flash: require('tpl!templates/flash.tmpl'),
 		tableExG: require('tpl!templates/tableExG.tmpl'),
 		tableExR: require('tpl!templates/tableExR.tmpl'),
-		camera: require('tpl!templates/camera.tmpl')
+		camera: require('tpl!templates/camera.tmpl'),
+		userRegister: require('tpl!templates/userRegister.tmpl')
 		
 	};
 });

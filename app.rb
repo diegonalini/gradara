@@ -75,8 +75,17 @@ get '/islogged/:token' do
   return {:valid => false}.to_json
 end
 
+get '/existsUsername/:s' do
+  k=DB.collection('users').find_one('username' => params[:s])
+  return {:exist => true}.to_json if k!=nil
+  return {:exist => false}.to_json
+end
 
-
+get '/existsEmail/:s' do
+  k=DB.collection('users').find_one('email' => params[:s])
+  return {:exist => true}.to_json if k!=nil
+  return {:exist => false}.to_json
+end
 
 get '/api/:thing' do
   role='guest'

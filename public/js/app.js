@@ -7,8 +7,9 @@ define([
 	'views/Flash',
 	'views/TableExample',
 	'views/Camera',
+	'views/Register',
 	'models/User'
-], function (Marionette, Login, Todo, Flash, TableExample, Camera, User) {
+], function (Marionette, Login, Todo, Flash, TableExample, Camera, Register, User) {
 	'use strict';
 
 	var app = new Marionette.Application();
@@ -18,7 +19,8 @@ define([
 		flash: '#flash',
 		todo: '#placeholder1',
 		tableExample: '#placeholder4',
-		camera: '#placeholder5'
+		camera: '#placeholder5',
+		userRegister: '#placeholder6'
 	});
 
 	app.addInitializer(function () {
@@ -27,9 +29,9 @@ define([
 		app.flash.show(new Flash());
 		app.tableExample.show(new TableExample());
 		app.camera.show(new Camera());
+		app.userRegister.show(new Register());
 	});
 
 	app.user=new User();
-	//console.log("INIZ "+JSON.stringify(app.user));
 	return window.app = app;
 });
