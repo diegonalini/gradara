@@ -20,7 +20,8 @@ define([
 		todo: '#placeholder1',
 		tableExample: '#placeholder4',
 		camera: '#placeholder5',
-		userRegister: '#placeholder6'
+		userRegister: '#placeholder6',
+		placeholderPopup: '#placeholderPopup'
 	});
 
 	app.addInitializer(function () {

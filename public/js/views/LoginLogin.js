@@ -3,8 +3,9 @@
 define([
 	'marionette',
 	'templates',
-	'models/User'
-], function (Marionette, templates, User) {
+	'models/User',
+	'views/Register'
+], function (Marionette, templates, User, Register) {
 	'use strict';
 
 
@@ -20,9 +21,15 @@ define([
 
 		events: {
 			'click .dropdown-menu': 'preventClose',
-			'click #login-button' : 'onLoginClick'
+			'click #login-button' : 'onLoginClick',
+			'click #register-button' : 'onRegisterClick'
 		},
 
+		onRegisterClick: function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			app.placeholderPopup.show(new Register());
+		},
 
 		onLoginClick: function (e) {
 			e.stopPropagation();
