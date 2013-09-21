@@ -22,15 +22,18 @@
 	top:100px;
 }
 
+.modal.fade {
+    top: 5%;
+}
 
   .modal {
     background-color:#fff;
     z-index:    9998;
-    width:350px;
+    width:50%;
     padding:15px;
     text-align:left;
     border:2px solid #333;
- 
+ 	position: absolute;
     opacity:1;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;

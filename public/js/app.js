@@ -7,9 +7,8 @@ define([
 	'views/Flash',
 	'views/TableExample',
 	'views/Camera',
-	'views/Register',
 	'models/User'
-], function (Marionette, Login, Todo, Flash, TableExample, Camera, Register, User) {
+], function (Marionette, Login, Todo, Flash, TableExample, Camera, User) {
 	'use strict';
 
 	var app = new Marionette.Application();
@@ -30,7 +29,6 @@ define([
 		app.flash.show(new Flash());
 		app.tableExample.show(new TableExample());
 		app.camera.show(new Camera());
-		app.userRegister.show(new Register());
 	});
 
 	app.user=new User();

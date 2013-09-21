@@ -23,14 +23,27 @@ define([
 	        	var self = this;
 	            this.user = new UserRegister;
 	            self.user.on('invalid', function(model, error) {
-	                    self.processErrors(error);
+	            	self.processErrors(error);
 	            });
+	        },
+	        
+	        onShow : function() {
+	        	$('#registerModal').modal({
+				  backdrop: 'static',
+				  keyboard: false
+				});
+	        },
+	        
+	        destroy : function() {
+	        	console.log('e');
+	        	this.remove();
 	        },
 	        
 	        events: {
 	            'click #registerSubmit' : 'onSubmit',
 	            'blur input[name="username"]' : 'checkUsernameExists',
-	            'blur input[name="email"]'    : 'checkEmailExists'
+	            'blur input[name="email"]'    : 'checkEmailExists',
+	            'click .destroyRegister' : 'destroy'
 	        },
 	        
 	        checkUsernameExists: function(e) {
@@ -63,7 +76,7 @@ define([
 	        onSubmit: function(e) {
 	            var self = this;
 	            e.preventDefault();
-	
+	            	
 	            var attrs = {
 	                'first_name': this.ui.first_name.val(),
 	                'last_name':  this.ui.last_name.val(),

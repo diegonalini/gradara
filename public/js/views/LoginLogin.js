@@ -26,6 +26,7 @@ define([
 		},
 
 		onRegisterClick: function (e) {
+			console.log('p');
 			e.stopPropagation();
 			e.preventDefault();
 			app.placeholderPopup.show(new Register());
