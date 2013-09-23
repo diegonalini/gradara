@@ -1,12 +1,15 @@
 
 <form class="form-search">
     <div class="dropdown btn-group">
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    <a id="userdropdown" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
         Access
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
       <form>
+      	<li>
+        	<a href="#myModal" id="register-button" role="button" class="btn" data-toggle="modal">Register</a>
+        </li>
         <li>
         	<div class="input-prepend">
 				<span class="add-on">user</span>
@@ -20,9 +23,6 @@
     		</div>
     	</li>
         <li><button id="login-button" type="submit" class="btn btn-primary">Login</button></li>
-        <li>
-        	<a href="#myModal" id="register-button" role="button" class="btn" data-toggle="modal">Register</a>
-        </li>
       </form>
     </ul>
 </div>

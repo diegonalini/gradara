@@ -22,11 +22,16 @@ define([
 		events: {
 			'click .dropdown-menu': 'preventClose',
 			'click #login-button' : 'onLoginClick',
-			'click #register-button' : 'onRegisterClick'
+			'click #register-button' : 'onRegisterClick',
+			'click #userdropdown': 'cleanFields'
+		},
+
+		cleanFields: function (e) {
+			$('#username-field').val('');
+			$('#password-field').val('');
 		},
 
 		onRegisterClick: function (e) {
-			console.log('p');
 			e.stopPropagation();
 			e.preventDefault();
 			app.placeholderPopup.show(new Register());
@@ -49,13 +54,18 @@ define([
 					//window.app.user.set({ token: val});
 					if (key=='language')  newVals[key]=val;
 					if (key=='role')  newVals[key]=val;
+					if (key=='status')  newVals[key]=val;
 					//window.app.user.set({ language: val});
 				});
+				console.log(newVals);
 				if(newVals['username']!='') newVals['isLogged']=true;
 				else Backbone.trigger('flash:error','Login error');
 				//window.app.user.set({ isLogged: true});
 				
-				window.app.user.set(newVals);
+				if(newVals['username']!='')
+					if (newVals['status']=='confirm') Backbone.trigger('flash:error','Please confirm user via sent EMAIL.');
+					else if (newVals['status']=='disabled') Backbone.trigger('flash:error','User disabled.');
+					else window.app.user.set(newVals);
 				//console.log("LoginLogin loginclick 2 (setted isLogged true) "+JSON.stringify(window.app.user));
 			});
 			//Backbone.trigger('login:login:clicked');

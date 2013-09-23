@@ -62,7 +62,7 @@ div.fadeMe {
 
 .alert-success, .alert-error{
 	border:1px solid black; 
-	position:absolute; 
+	position:fixed; 
 	display:none;
 	width: 90%;
 	top:60px; 

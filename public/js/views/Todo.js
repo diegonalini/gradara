@@ -38,7 +38,6 @@ define(['marionette',
 			this.listenTo(window.app.user, 'change:isLogged', function() {
 				todoList.fetch();
 				this.render();
-				console.log("Todo LISTENTO User");
 			});
 	
 			this.listenTo(todoList, 'all', function() {

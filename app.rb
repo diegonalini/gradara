@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'warden'
+require 'mail'
 require 'mongo'
 require 'json'
 require 'sinatra/security'
@@ -11,6 +12,19 @@ $accessMap={ 'guest'=>{},
             'basic'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'} },
             'editor'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'} },
             'admin'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'} }}
+
+options = { :address              => "smtp.gmail.com",
+            :port                 => 587,
+            :domain               => 'gmail.com',
+            :user_name            => 'naliniandroid',
+            :password             => 'ciccione1',
+            :authentication       => 'plain',
+            :enable_starttls_auto => true  }
+
+Mail.defaults do
+  delivery_method :smtp, options
+end
+
 
 def accessControl(role, coll, op)
   begin
@@ -38,7 +52,7 @@ end
 get '/login/:username/:password' do
   # env['rack.session'][:token]="Hello Rack"
   if (DB.collection('users').find({ role: 'admin'}).count == 0)
-    DB.collection('users').insert({username: 'admin', password: Sinatra::Security::Password::Hashing.encrypt('test', '123456789012'), role:'admin'})
+    DB.collection('users').insert({status: 'active', username: 'admin', password: Sinatra::Security::Password::Hashing.encrypt('test', '123456789012'), role:'admin'})
   end
   user = DB.collection('users').find_one({ username: params[:username], password: Sinatra::Security::Password::Hashing.encrypt(params[:password], '123456789012') })
   if (user!=nil)
@@ -46,8 +60,9 @@ get '/login/:username/:password' do
     doc['username']=params[:username]
     doc['role']=user["role"]
     doc['expires']=Time.new().to_i+1800
-    token=DB.collection('tokens').insert(doc)
-    return {:token => token.to_s, :username => params[:username], :role => user[:role]}.to_json
+    token=0
+    token=DB.collection('tokens').insert(doc) if user['status']=='active'
+    return {:token => token.to_s, :username => params[:username], :role => user['role'], :status => user['status']}.to_json
   end
   return {:token => '0', :username =>'', :role => 'guest'}.to_json
 end
@@ -86,6 +101,34 @@ get '/existsEmail/:s' do
   return {:exist => true}.to_json if k!=nil
   return {:exist => false}.to_json
 end
+
+get '/activate/:key' do
+  DB.collection('users').update({'confirmkey' => params[:key], 'status' => 'confirm'}, {'$set' => {"status" => "active"}}) 
+  redirect '/'
+end
+
+post '/register' do
+  pwd=Sinatra::Security::Password::Hashing.encrypt(params[:password], '123456789012')
+  copy=params.select{|x| x != "password"}
+  copy[:password]=pwd
+  copy[:role]='basic'
+  copy[:status]='confirm'   #disabled , active
+  copy[:confirmkey]=('a'..'z').to_a.shuffle[0,14].join
+  DB.collection('users').insert(copy)
+  mail = Mail.new do
+        to copy["email"]
+        sender 'noreply@gmail.com' ##associate new account in gmail
+        subject 'Gradara account activation'
+        body 'To complete activation visit http://localhost:9292/activate/'+copy[:confirmkey]
+  end
+
+  Thread.new {
+    p mail.deliver!
+  }
+ 
+  {:done => 'ok'}.to_json
+end
+
 
 get '/api/:thing' do
   role='guest'

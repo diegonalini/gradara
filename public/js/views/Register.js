@@ -35,7 +35,6 @@ define([
 	        },
 	        
 	        destroy : function() {
-	        	console.log('e');
 	        	this.remove();
 	        },
 	        
@@ -105,12 +104,17 @@ define([
                 if(errors.length > 0) {
                     self.processErrors(errors);
                  } else if(user){
-					//user.set(this.attrs, );
-                    /*user.save(this.attrs, {
-                        success: function(model, response){
-                        //window.location.href = self.redirect_url;
-                    }});*/
-                   alert('OK');
+					
+					$.ajax({
+					  url: '/register',
+					  dataType: 'json',
+					  type: "POST",
+					  data: this.user.toJSON()
+					}).done(function( msg ) {
+						Backbone.trigger('flash:success','Registration request accepted. Confirmation EMAIL sent');
+                   		$('.modal-backdrop').remove();
+                   		self.remove();
+					});
                 }
           
 	        },

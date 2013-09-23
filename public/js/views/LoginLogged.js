@@ -54,7 +54,7 @@ define([
 			//console.log("LoginLogout logoutclick "+JSON.stringify(window.app.user));
 			$.getJSON('/logout/'+window.app.user.get('token'), function(data) {
 				console.log("logged out");
-      			window.app.user.set({isLogged: false, token: '0', username: ''});
+      			window.app.user.set({isLogged: false, token: '0', username: '', role:'guest'});
       		});
       		//console.log("LoginLogout logoutclick 2 (setted isLogged false) "+JSON.stringify(window.app.user));
 			//Backbone.trigger('login:logout:clicked');
