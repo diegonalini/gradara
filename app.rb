@@ -50,7 +50,15 @@ end
 
 
 get '/login/:username/:password' do
-  # env['rack.session'][:token]="Hello Rack"
+  p recaptcha_tag :challenge
+  
+  black = DB.collection('blacklist').find_one('ip' => env['REMOTE_ADDR'])
+  blackfailed=0
+  blacklast=0
+  blackfailed= black['tries'] if (black!= nil)
+  blacklast= black['lasttry'] if (black!= nil) 
+  p 'REJECT' if Time.new().to_i-blacklast<blackfailed
+  return {:token => '0', :username =>'', :role => 'guest'}.to_json if Time.new().to_i-blacklast<blackfailed
   if (DB.collection('users').find({ role: 'admin'}).count == 0)
     DB.collection('users').insert({status: 'active', username: 'admin', password: Sinatra::Security::Password::Hashing.encrypt('test', '123456789012'), role:'admin'})
   end
@@ -63,6 +71,11 @@ get '/login/:username/:password' do
     token=0
     token=DB.collection('tokens').insert(doc) if user['status']=='active'
     return {:token => token.to_s, :username => params[:username], :role => user['role'], :status => user['status']}.to_json
+  end
+  if black==nil then
+    DB.collection('blacklist').insert({'ip' => env['REMOTE_ADDR'], 'tries' => 1, 'lasttry' =>Time.new().to_i })
+  else
+    DB.collection('blacklist').update({'ip' => env['REMOTE_ADDR']},{'$set' => {'trieduser' => params[:username],'tries' => blackfailed+1, 'lasttry' =>Time.new().to_i }})
   end
   return {:token => '0', :username =>'', :role => 'guest'}.to_json
 end
