@@ -45,10 +45,10 @@ define(['marionette',
 				this.footer.$el.toggle(todoList.length > 0);
 			});
 
-			app.vent.on('todoList:filter', function(filter) {
+			/*app.vent.on('todoList:filter', function(filter) {
 				footer.updateFilterSelection(filter);
 				document.getElementById('todoapp').className = 'filter-' + (filter === '' ? 'all' : filter);
-			});
+			});*/
 
 			app.vent.on('todoList:clear:completed', function() {
 				todoList.getCompleted().forEach(function(todo) {

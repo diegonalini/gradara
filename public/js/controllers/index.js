@@ -6,8 +6,8 @@ define([
 	'use strict';
 
 	return {
-		setFilter: function (param) {
-			app.vent.trigger('todoList:filter', param && param.trim() || '');
+		changePage: function (param) {
+			//app.vent.trigger('todoList:filter', param && param.trim() || '');
 		}
 	};
 });

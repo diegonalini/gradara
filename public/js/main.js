@@ -73,8 +73,6 @@ $.ajaxSetup (
     if (!jQuery.support.leadingWhitespace) alert("ERROR!!!  IE version < 9 \nPlease update your IE browser \nor use recent Firefox or Chrome");
 	else app.start();
 
-	new Router({ controller: Controller });
-
-	Backbone.history.start();
+	
 });
 

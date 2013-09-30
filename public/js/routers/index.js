@@ -7,7 +7,7 @@ define([
 
 	return Marionette.AppRouter.extend({
 		appRoutes: {
-			'*filter': 'setFilter'
+			'*filter': 'changePage'
 		}
 	});
 });
