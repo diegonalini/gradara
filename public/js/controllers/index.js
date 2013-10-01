@@ -7,7 +7,8 @@ define([
 
 	return {
 		changePage: function (param) {
-			//app.vent.trigger('todoList:filter', param && param.trim() || '');
+			Backbone.trigger('change:page');
+			console.log(param);
 		}
 	};
 });

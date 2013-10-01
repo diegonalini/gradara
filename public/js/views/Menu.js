@@ -24,7 +24,10 @@ define([
 		},
 
 		initialize: function () {
-			//this.listenTo(this.collection, 'all', this.update);
+			var that=this;
+			Backbone.on('change:page', function(msg) {
+				that.render();
+			});
 		},
 
 		onRender: function () {

@@ -50,8 +50,6 @@ end
 
 
 get '/login/:username/:password' do
-  p recaptcha_tag :challenge
-  
   black = DB.collection('blacklist').find_one('ip' => env['REMOTE_ADDR'])
   blackfailed=0
   blacklast=0
