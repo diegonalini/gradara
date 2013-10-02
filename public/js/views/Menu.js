@@ -25,9 +25,10 @@ define([
 
 		initialize: function () {
 			var that=this;
-			Backbone.on('change:page', function(msg) {
+			Backbone.on('change:page login logout', function(msg) {
 				that.render();
 			});
+			
 		},
 
 		onRender: function () {

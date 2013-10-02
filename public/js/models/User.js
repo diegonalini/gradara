@@ -85,10 +85,6 @@ define([
 		cycle: function () {
 			//console.log("User.cycle "+JSON.stringify(window.app.user));
 			$.getJSON('/islogged/'+window.app.user.get('token'), function(data) {
-				try{
-					
-				}
-				catch(e){}
 				$.each(data, function(key, val) {
 					//console.log("User.cycle 2 "+val+" "+JSON.stringify(window.app.user));
 					if (key=='valid'){ 

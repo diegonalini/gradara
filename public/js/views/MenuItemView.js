@@ -8,7 +8,7 @@ define([
 ], function (Marionette, templates, Todo, Camera) {
 	'use strict';
 
-	return Marionette.CompositeView.extend({
+	return Marionette.ItemView.extend({
 		tagName: 'li',
 
 		template: templates.menuItemView,
@@ -25,11 +25,17 @@ define([
 		},
 
 		onRender: function () {
+			var self=this;
 			this.$el.removeClass('active');
-			if((this.model.get('title').toLowerCase()=='home' && Backbone.history.fragment=='')||this.model.get('title')==Backbone.history.fragment){
+			if((this.model.get('title').toLowerCase()=='home' && Backbone.history.fragment=='') || this.model.get('title')==Backbone.history.fragment){
 				this.$el.addClass( 'active');
 				this.putBonelets();
 			}
+			if(this.model.get('role')=='admin' && window.app.user.get('role')!='admin')
+				{
+					this.$el.addClass( 'hide');
+					self.remove();
+				} 
 		},
 		
 		clicked: function () {
@@ -43,22 +49,18 @@ define([
 		
 		putBonelets: function (){
 			//clear all
-			try{app.bonelet1.remove(); app.bonelet1=null;}catch(err){}
-			try{app.bonelet2.remove(); app.bonelet2=null;}catch(err){}
-			try{app.bonelet3.remove(); app.bonelet3=null;}catch(err){}
-			try{app.bonelet4.remove(); app.bonelet4=null;}catch(err){}
-			try{app.bonelet5.remove(); app.bonelet5=null;}catch(err){}
-			try{app.bonelet6.remove(); app.bonelet6=null;}catch(err){}
-			
-			//place bonelets
-			if(this.model.get('title').toLowerCase()=='home') {
-				app.bonelet1=new Todo();
-				app.p1.show(app.bonelet1);
-			}	
-			else {
-				app.bonelet2=new Camera();
-				app.p4.show(app.bonelet2);
+			for (var i=1;i<=6; i++){
+				try{app.bonelet[i].remove(); app.bonelet[i]=null;}catch(err){}	
 			}
+			//place bonelets
+			if(this.model.get('role')=='admin' && window.app.user.get('role')!='admin') return;
+			for (var key in this.model.get('bonelets')){
+				var value=this.model.get('bonelets')[key];
+				if(value=='Todo') app.bonelet[parseInt(key)]=new Todo();
+				if(value=='Camera') app.bonelet[parseInt(key)]=new Camera();
+				app['p'+key].show(app.bonelet[parseInt(key)]);
+			}
+
 		}
 	
 	});

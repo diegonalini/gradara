@@ -79,7 +79,7 @@ get '/login/:username/:password' do
 end
 
 get '/logout/:token' do
-  DB.collection('tokens').remove('_id' => to_bson_id(params[:token]))
+  DB.collection('tokens').remove('_id' => to_bson_id(params[:token])) if(params[:token]!='0')
   return {:token => '0', :username =>'', :role => 'guest'}.to_json
 end 
 

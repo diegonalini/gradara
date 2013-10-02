@@ -26,6 +26,7 @@ define([
 			Backbone.on('logout', function() {
 				console.log("Login show login");
 				that.placeholder.show(new LoginLogin());
+				app.router.navigate('',{trigger: true});
 			});
 		},
 

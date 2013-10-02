@@ -37,6 +37,7 @@ define([
 
 	app.user=new User();
 	
+	app.bonelet=[];
 	
 	app.router=new Router({ controller: Controller });
 	Backbone.history.start();
