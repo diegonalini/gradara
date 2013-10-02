@@ -3,8 +3,8 @@
 define([
 	'marionette',
 	'templates',
-	'views/Todo',
-	'views/Camera'
+	'bonelets/views/Todo',
+	'bonelets/views/Camera'
 ], function (Marionette, templates, Todo, Camera) {
 	'use strict';
 

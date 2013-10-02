@@ -2,11 +2,11 @@
 
 define(['marionette', 
 		'templates', 
-		'views/Todo', 
-		'views/TodoHeader', 
-		'views/TodoListCompositeView', 
-		'views/TodoFooter', 
-		'collections/TodoList'], function(Marionette, templates, Todo, Header, TodoListCompositeView, Footer, TodoList) {
+		'bonelets/views/Todo', 
+		'bonelets/views/TodoHeader', 
+		'bonelets/views/TodoListCompositeView', 
+		'bonelets/views/TodoFooter', 
+		'bonelets/collections/TodoList'], function(Marionette, templates, Todo, Header, TodoListCompositeView, Footer, TodoList) {
 	'use strict';
 
 	return Marionette.Layout.extend({

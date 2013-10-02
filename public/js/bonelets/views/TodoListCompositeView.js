@@ -3,7 +3,7 @@
 define([
 	'marionette',
 	'templates',
-	'views/TodoItemView'
+	'bonelets/views/TodoItemView'
 ], function (Marionette, templates, ItemView) {
 	'use strict';
 

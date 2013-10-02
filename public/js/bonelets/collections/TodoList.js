@@ -2,7 +2,7 @@
 
 define([
 	'backbone',
-	'models/Todo',
+	'bonelets/models/Todo',
 	'localStorage'
 ], function (Backbone, Todo) {
 	'use strict';

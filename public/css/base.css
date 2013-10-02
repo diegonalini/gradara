@@ -555,3 +555,7 @@ hr {
 		margin: 130px auto 40px auto;
 	}
 }
+
+
+
+.nav-collapse li { list-style: none; }

@@ -3,8 +3,8 @@
 define([
 	'marionette',
 	'templates',
-	'views/ActiveCount',
-	'views/CompletedCount'
+	'bonelets/views/ActiveCount',
+	'bonelets/views/CompletedCount'
 ], function (Marionette, templates, ActiveCount, CompletedCount) {
 	'use strict';
 
