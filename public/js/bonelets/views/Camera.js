@@ -7,6 +7,7 @@ define([
 	'use strict';
 
 	return Marionette.Layout.extend({
+		name: "Camera",
 		template: templates.camera,
 
 		initialize: function(){

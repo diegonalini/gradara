@@ -10,6 +10,7 @@ define(['marionette',
 	'use strict';
 
 	return Marionette.Layout.extend({
+		name: "Todo",
 		template : templates.todo,
 
 		regions : {
@@ -20,7 +21,7 @@ define(['marionette',
 
 		onRender : function() {
 			var todoList = new TodoList();
-
+	console.log("render todo");
 			todoList.fetch();
 
 			var viewOptions = {
@@ -36,7 +37,7 @@ define(['marionette',
 			this.footer.show(footer);
 	
 			this.listenTo(window.app.user, 'change:isLogged', function() {
-				todoList.fetch();
+				//todoList.fetch();
 				this.render();
 			});
 	
