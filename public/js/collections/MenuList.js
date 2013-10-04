@@ -17,12 +17,12 @@ define([
 		initialize:function () {
 		},
 
-		getActive: function () {
-	//		return this.reject(isCompleted);
-		}/*,
-
-		comparator: function (todo) {
-			return todo.get('created');
-		}*/
+		sort_key: 'order', // default sort key
+	    comparator: function(item) {
+	        return item.get(this.sort_key);
+	    },
+	    sortByField: function() {
+	        this.sort();
+	    }
 	});
 });

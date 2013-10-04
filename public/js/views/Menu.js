@@ -24,13 +24,18 @@ define([
 		},
 
 		initialize: function () {
+			this.collection=new MenuList();
 			var that=this;
+			this.collection.on('sort reset', this.render, this);
 			Backbone.on('change:page login logout', function(msg) {
 				that.render();
 			});
-			
 		},
 
+		onBeforeRender: function(){
+		    this.collection.fetch();
+		},
+  
 		onRender: function () {
 			//var menuList = new MenuList();
 			//menuList.fetch();

@@ -28,9 +28,7 @@ define([
 	});
 
 	app.addInitializer(function () {
-		var menuList = new MenuList();
-		menuList.fetch();
-		app.menu.show(new Menu({collection : menuList}));
+		app.menu.show(new Menu());
 		app.login.show(new Login());
 		app.flash.show(new Flash());
 	});
