@@ -54,7 +54,9 @@ define([
 				try{
 					var value=this.model.get('bonelets')[""+i]["name"];
 					if(value=='Todo') app.bonelet[i]=new Todo();
-					if(value=='Camera') app.bonelet[i]=new Camera();
+					if(value=='Camera') {
+						app.bonelet[i]=new Camera({group:this.model.get('bonelets')[""+i]["group"]});
+					}
 					app['p'+i].show(app.bonelet[i]);
 				}catch(err){} 
 			}

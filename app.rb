@@ -8,10 +8,10 @@ require 'sinatra/security'
 
 DB = Mongo::Connection.new.db("gradaradb", :pool_size => 5, :timeout => 5)
 
-$accessMap={ 'guest'=>{'menus'=>{ 'GET'=>'true'}},
-            'basic'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'}, 'menus'=>{ 'GET'=>'true'} },
-            'editor'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'}, 'menus'=>{ 'GET'=>'true'} },
-            'admin'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'}, 'menus'=>{ 'GET'=>'true'} }}
+$accessMap={ 'guest'=>{'menus'=>{ 'GET'=>'true'}, 'slideshows'=>{ 'GET'=>'true'}},
+            'basic'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'}, 'menus'=>{ 'GET'=>'true'}, 'slideshows'=>{ 'GET'=>'true'} },
+            'editor'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'}, 'menus'=>{ 'GET'=>'true'}, 'slideshows'=>{ 'GET'=>'true'} },
+            'admin'=>{ 'todos'=>{ 'GET'=>'self', 'PUT'=>'self' , 'POST'=>'self', 'DELETE'=>'self'}, 'menus'=>{ 'GET'=>'true'}, 'slideshows'=>{ 'GET'=>'true'} }}
 
 options = { :address              => "smtp.gmail.com",
             :port                 => 587,

@@ -2,20 +2,34 @@
 define([
 	'marionette',
 	'templates',
+	'bonelets/collections/SlideShowList',
+	'bonelets/views/SlideShowItemView',
 	'camera'
-], function (Marionette, templates) {
+], function (Marionette, templates, SlideShowList, SlideShowItemView) {
 	'use strict';
 
-	return Marionette.Layout.extend({
+	return Marionette.CompositeView.extend({
 		name: "Camera",
+		
 		template: templates.camera,
+		
+		itemView: SlideShowItemView,
+		
+		itemViewContainer: '#camera_wrap_1',
 
-		initialize: function(){
-			
+		initialize: function(options){
+			var self = this;
+			app.slideshowfilter=options.group;
+			this.collection=new SlideShowList();
+			this.collection.fetch().then(function() {
+				self.render();
+ 			});
+ 			
 		},
 
-		onShow : function() {
-			jQuery('#camera_wrap_1').camera({loader:'none', fx:'simpleFade'});
+		onRender : function() {
+			if(this.collection.size()>0)
+				jQuery('#camera_wrap_1').camera({loader:'none', fx:'simpleFade'});
 		}
 		
 	});
