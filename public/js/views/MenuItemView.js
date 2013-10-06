@@ -4,8 +4,8 @@ define([
 	'marionette',
 	'templates',
 	'bonelets/views/Todo',
-	'bonelets/views/Camera'
-], function (Marionette, templates, Todo, Camera) {
+	'bonelets/views/SlideShow'
+], function (Marionette, templates, Todo, SlideShow) {
 	'use strict';
 
 	return Marionette.ItemView.extend({
@@ -54,8 +54,8 @@ define([
 				try{
 					var value=this.model.get('bonelets')[""+i]["name"];
 					if(value=='Todo') app.bonelet[i]=new Todo();
-					if(value=='Camera') {
-						app.bonelet[i]=new Camera({group:this.model.get('bonelets')[""+i]["group"]});
+					if(value=='SlideShow') {
+						app.bonelet[i]=new SlideShow({group:this.model.get('bonelets')[""+i]["group"]});
 					}
 					app['p'+i].show(app.bonelet[i]);
 				}catch(err){} 

@@ -9,7 +9,7 @@ define([
 	'use strict';
 
 	return Marionette.CompositeView.extend({
-		name: "Camera",
+		name: "SlideShow",
 		
 		template: templates.slideShow,
 		
