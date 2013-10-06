@@ -16,7 +16,7 @@ define(function (require) {
 		flash: require('tpl!templates/flash.tmpl'),
 		tableExG: require('tpl!bonelets/templates/tableExG.tmpl'),
 		tableExR: require('tpl!bonelets/templates/tableExR.tmpl'),
-		camera: require('tpl!bonelets/templates/camera.tmpl'),
+		slideShow: require('tpl!bonelets/templates/slideShow.tmpl'),
 		userRegister: require('tpl!templates/userRegister.tmpl'),
 		menu: require('tpl!templates/menu.tmpl'),
 		menuItemView: require('tpl!templates/menuItemView.tmpl')

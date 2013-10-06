@@ -22,11 +22,10 @@ define([
 		},
 
 		onRender: function () {
+			 var self=this;
 			 this.el.setAttribute('data-src', this.model.get('url'));
 			 if(this.model.get('group')!=app.slideshowfilter)this.el.className="removeMe";
-			 $(".removeMe").remove();
 		}
-
 	
 	});
 });

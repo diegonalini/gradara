@@ -11,7 +11,7 @@ define([
 	return Marionette.CompositeView.extend({
 		name: "Camera",
 		
-		template: templates.camera,
+		template: templates.slideShow,
 		
 		itemView: SlideShowItemView,
 		
@@ -28,6 +28,7 @@ define([
 		},
 
 		onRender : function() {
+			$('.removeMe').remove()
 			if(this.collection.size()>0)
 				jQuery('#camera_wrap_1').camera({loader:'none', fx:'simpleFade'});
 		}
