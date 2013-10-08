@@ -7,9 +7,9 @@ define([
 	'use strict';
 
 	return Marionette.ItemView.extend({
-		tagName: 'div',
+		tagName: 'li',
 
-		template: templates.slideShowItemView,
+		template: templates.assetItem,
 
 		ui: {
 		},
@@ -22,10 +22,6 @@ define([
 		},
 
 		onRender: function () {
-			 var self=this;
-			 this.el.setAttribute('data-src', this.model.get('url'));
-			 this.el.setAttribute('data-video', "hide");
-			 if(this.model.get('group')!=app.slideshowfilter)this.el.className="removeMe";
 		}
 	
 	});

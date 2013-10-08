@@ -7,6 +7,8 @@ define(function (require) {
 		todoItemView: require('tpl!bonelets/templates/todoItemView.tmpl'),
 		todosCompositeView: require('tpl!bonelets/templates/todoListCompositeView.tmpl'),
 		slideShowItemView: require('tpl!bonelets/templates/slideShowItemView.tmpl'),
+		assets: require('tpl!bonelets/templates/assets.tmpl'),
+		assetItem: require('tpl!bonelets/templates/assetItem.tmpl'),
 		todoFooter: require('tpl!bonelets/templates/todoFooter.tmpl'),
 		header: require('tpl!bonelets/templates/todoHeader.tmpl'),
 		login: require('tpl!templates/login.tmpl'),

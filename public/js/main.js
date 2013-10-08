@@ -14,6 +14,7 @@ require.config({
 		bootstrap: '../bower_components/bootstrap/bootstrap.min',
 		tpl: 'lib/tpl',
 		camera: '../bower_components/slideshow/camera.min',
+		etch: '../bower_components/etch/etch',
 		jqueryeasing: '../bower_components/slideshow/jquery.easing.1.3',
 		jquerymobile: '../bower_components/jquery/jquery.mobile-1.3.2.min'
 	},
@@ -37,6 +38,9 @@ require.config({
             deps: ["jquery"]
         },
         
+        etch: {
+            deps: ["backbone"]
+        },
         
 		jquerymobile: ["jquery"],
 		jqueryeasing: ["jquerymobile"],

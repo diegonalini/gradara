@@ -4,8 +4,9 @@ define([
 	'marionette',
 	'templates',
 	'bonelets/views/Todo',
-	'bonelets/views/SlideShow'
-], function (Marionette, templates, Todo, SlideShow) {
+	'bonelets/views/SlideShow',
+	'bonelets/views/Assets'
+], function (Marionette, templates, Todo, SlideShow, Assets) {
 	'use strict';
 
 	return Marionette.ItemView.extend({
@@ -49,13 +50,16 @@ define([
 		
 		putBonelets: function (){
 			for (var i=1;i<=6; i++){
-				if(app.bonelet[i]!=null && this.model.get('bonelets')!=null && this.model.get('bonelets')[""+i]!=null && app.bonelet[i].name==this.model.get('bonelets')[""+i]["name"]) continue;
+				if(app.bonelet[i]!=null && this.model.get('bonelets')!=null && this.model.get('bonelets')[""+i]!=null && app.bonelet[i].name==this.model.get('bonelets')[""+i]["name"] && app.bonelet[i].group==this.model.get('bonelets')[""+i]["group"]) continue;
 				try{app.bonelet[i].remove(); app.bonelet[i]=null;}catch(err){}	
 				try{
 					var value=this.model.get('bonelets')[""+i]["name"];
 					if(value=='Todo') app.bonelet[i]=new Todo();
 					if(value=='SlideShow') {
 						app.bonelet[i]=new SlideShow({group:this.model.get('bonelets')[""+i]["group"]});
+					}
+					if(value=='Asset') {
+						app.bonelet[i]=new Assets({group:this.model.get('bonelets')[""+i]["group"]});
 					}
 					app['p'+i].show(app.bonelet[i]);
 				}catch(err){} 
