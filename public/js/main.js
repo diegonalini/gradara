@@ -7,7 +7,7 @@ require.config({
 	
 	paths: {
 		underscore: '../bower_components/underscore/underscore-min',
-		backbone: '../bower_components/backbone/backbone-min',
+		backbone: '../bower_components/backbone/backbone',
 		marionette: '../bower_components/backbone.marionette/lib/backbone.marionette.min',
 		jquery: '../bower_components/jquery/jquery-1.10.2.min',
 		localStorage: '../bower_components/backbone.localStorage/backbone.localStorage',
@@ -16,7 +16,8 @@ require.config({
 		camera: '../bower_components/slideshow/camera.min',
 		etch: '../bower_components/etch/etch',
 		jqueryeasing: '../bower_components/slideshow/jquery.easing.1.3',
-		jquerymobile: '../bower_components/jquery/jquery.mobile-1.3.2.min'
+		jquerymobile: '../bower_components/jquery/jquery.mobile-1.3.2.min',
+		jqueryui: '../bower_components/jquery/jquery-ui-1.10.3.custom.min'
 	},
 
 	shim: {
@@ -43,6 +44,7 @@ require.config({
         },
         
 		jquerymobile: ["jquery"],
+		jqueryui: ["jquery"],
 		jqueryeasing: ["jquerymobile"],
 		camera: ["jqueryeasing"]
 	},

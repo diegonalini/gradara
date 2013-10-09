@@ -233,7 +233,7 @@
     save: function(e) {
       e.preventDefault();
       var editableModel = this.model.get('editableModel');
-      editableModel.trigger('save');
+      editableModel.trigger('saveModel');
     }
   });
 

@@ -9,7 +9,7 @@ define([
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
 
-	return Marionette.CompositeView.extend({
+	return Marionette.ItemView.extend({
 		tagName: 'li',
 
 		template: templates.todoItemView,
