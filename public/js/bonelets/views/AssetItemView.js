@@ -17,8 +17,7 @@ define([
 		},
 
 		modelEvents: {
-    		'saveModel': 'save1',
-    		'click .destroy': 'destroy'
+    		'saveModel': 'save1'
 		},
 		
 		events: {
