@@ -6,7 +6,8 @@ require 'mongo'
 require 'json'
 require 'sinatra/security'
 
-DB = Mongo::Connection.new.db("gradaradb", :pool_size => 5, :timeout => 5)
+#DB = Mongo::Connection.new.db("gradaradb", :pool_size => 5, :timeout => 5)
+set :DB, Database.new().connect()
 
 $accessMap={'guest'=>{ 'menus'=>{ 'GET'=>'true'}, 
                        'slideshows'=>{ 'GET'=>'true'}, 

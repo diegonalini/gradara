@@ -21,7 +21,6 @@ define(['marionette',
 
 		onRender : function() {
 			var todoList = new TodoList();
-	console.log("render todo");
 			todoList.fetch();
 
 			var viewOptions = {
