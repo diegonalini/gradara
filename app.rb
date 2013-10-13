@@ -6,9 +6,13 @@ require 'mongo'
 require 'json'
 require 'sinatra/security'
 
-#DB = Mongo::Connection.new.db("gradaradb", :pool_size => 5, :timeout => 5)
-set :DB, Database.new().connect()
-
+port=ENV['OPENSHIFT_NOSQL_DB_PORT']
+port='27017' if port==nil
+host=ENV['OPENSHIFT_NOSQL_DB_HOST']
+host='127.0.0.1' if host==nil
+DB = Mongo::Connection.new(host, port).db("gradaradb",:pool_size => 5, :timeout => 5)
+DB.authenticate(ENV['OPENSHIFT_NOSQL_DB_USERNAME'], ENV['OPENSHIFT_NOSQL_DB_PASSWORD']) if ENV['OPENSHIFT_NOSQL_DB_USERNAME']!=nil
+ 
 $accessMap={'guest'=>{ 'menus'=>{ 'GET'=>'true'}, 
                        'slideshows'=>{ 'GET'=>'true'}, 
                        'assets'=>{ 'GET'=>'true'} },
