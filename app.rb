@@ -10,7 +10,7 @@ url=ENV['OPENSHIFT_MONGODB_DB_URL']
 url='mongodb://127.0.0.1:27017/' if url==nil
 #host=ENV['OPENSHIFT_MONGODB_DB_HOST']
 #host='127.0.0.1' if host==nil
-DB = Mongo::Connection.from_uri( uri )
+DB = Mongo::Connection.from_uri( url )
 #DB.authenticate(ENV['OPENSHIFT_MONGODB_DB_USERNAME'], ENV['OPENSHIFT_MONGODB_DB_PASSWORD']) if ENV['OPENSHIFT_MONGODB_DB_USERNAME']!=nil
  
 $accessMap={'guest'=>{ 'menus'=>{ 'GET'=>'true'}, 
