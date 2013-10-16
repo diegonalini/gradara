@@ -6,6 +6,9 @@ require 'mongo'
 require 'json'
 require 'sinatra/security'
 
+require 'rack/ssl-enforcer'
+use Rack::SslEnforcer
+
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 url='mongodb://127.0.0.1:27017/' if url==nil
 DB = Mongo::Connection.from_uri( url+'gradaradb' ).db("gradaradb",:pool_size => 5, :timeout => 5)
@@ -137,12 +140,14 @@ post '/register' do
   copy[:role]='basic'
   copy[:status]='confirm'   #disabled , active
   copy[:confirmkey]=('a'..'z').to_a.shuffle[0,14].join
+  url=ENV[OPENSHIFT_APP_DNS]
+  url='localhost:9292'  if url==nil
   DB.collection('users').insert(copy)
   mail = Mail.new do
         to copy["email"]
         sender 'noreply@gmail.com' ##associate new account in gmail
         subject 'Gradara account activation'
-        body 'To complete activation visit http://localhost:9292/activate/'+copy[:confirmkey]
+        body 'To complete activation visit http://'+url+'/activate/'+copy[:confirmkey]
   end
 
   Thread.new {
