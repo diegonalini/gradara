@@ -7,7 +7,7 @@ require 'json'
 require 'sinatra/security'
 
 require 'rack/ssl-enforcer'
-use Rack::SslEnforcer
+use Rack::SslEnforcer, :only => %r{^/login/}
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 url='mongodb://127.0.0.1:27017/' if url==nil
