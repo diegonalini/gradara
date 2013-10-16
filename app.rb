@@ -8,11 +8,7 @@ require 'sinatra/security'
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 url='mongodb://127.0.0.1:27017/' if url==nil
-url='mongodb://admin:W5GYZtd2H3MJ@127.10.94.130:27017/gradara'
-#host=ENV['OPENSHIFT_MONGODB_DB_HOST']
-#host='127.0.0.1' if host==nil
-DB = Mongo::Connection.from_uri( url )
-#DB.authenticate(ENV['OPENSHIFT_MONGODB_DB_USERNAME'], ENV['OPENSHIFT_MONGODB_DB_PASSWORD']) if ENV['OPENSHIFT_MONGODB_DB_USERNAME']!=nil
+DB = Mongo::Connection.from_uri( url+'gradaradb' ).db("gradaradb",:pool_size => 5, :timeout => 5)
  
 $accessMap={'guest'=>{ 'menus'=>{ 'GET'=>'true'}, 
                        'slideshows'=>{ 'GET'=>'true'}, 
