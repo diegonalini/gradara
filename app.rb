@@ -8,7 +8,7 @@ require 'sinatra/security'
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 url='mongodb://127.0.0.1:27017/' if url==nil
-url='mongodb://admin:W5GYZtd2H3MJ@127.10.94.130:27017/'
+url='mongodb://admin:W5GYZtd2H3MJ@127.10.94.130:27017/gradara'
 #host=ENV['OPENSHIFT_MONGODB_DB_HOST']
 #host='127.0.0.1' if host==nil
 DB = Mongo::Connection.from_uri( url )
