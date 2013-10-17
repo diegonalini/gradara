@@ -45,7 +45,9 @@ define([
 			var pwd=$('#password-field').val();
 			if (user=='') user='nil';
 			if (pwd=='') pwd='nil';
+			console.log(pwd);
 			$.getJSON('/login/'+user +'/'+pwd +'', function(data) {
+				console.log("a");
 				var newVals={};
 				$.each(data, function(key, val) {
 					if (key=='username') newVals[key]=val;
@@ -67,6 +69,8 @@ define([
 					else if (newVals['status']=='disabled') Backbone.trigger('flash:error','User disabled.');
 					else window.app.user.set(newVals);
 				//console.log("LoginLogin loginclick 2 (setted isLogged true) "+JSON.stringify(window.app.user));
+			}).error(function() { 
+                console.log("b");
 			});
 			//Backbone.trigger('login:login:clicked');
 		},

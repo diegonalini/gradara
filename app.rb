@@ -5,9 +5,10 @@ require 'mail'
 require 'mongo'
 require 'json'
 require 'sinatra/security'
-
 require 'rack/ssl-enforcer'
-use Rack::SslEnforcer, :only => %r{^/lo__gin/}
+
+url=ENV['OPENSHIFT_MONGODB_DB_URL']
+use Rack::SslEnforcer   if (url!=nil) #, :only => %r{^/login/}
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 url='mongodb://127.0.0.1:27017/' if url==nil
@@ -73,7 +74,7 @@ get '/login/:username/:password' do
   p 'REJECT' if Time.new().to_i-blacklast<blackfailed
   return {:token => '0', :username =>'', :role => 'guest'}.to_json if Time.new().to_i-blacklast<blackfailed
   if (DB.collection('users').find({ role: 'admin'}).count == 0)
-    DB.collection('users').insert({status: 'active', username: 'admin', password: Sinatra::Security::Password::Hashing.encrypt('test', '123456789012'), role:'admin'})
+    DB.collection('users').insert({status: 'active', username: 'admin', password: Sinatra::Security::Password::Hashing.encrypt('admin', '123456789012'), role:'admin'})
   end
   user = DB.collection('users').find_one({ username: params[:username], password: Sinatra::Security::Password::Hashing.encrypt(params[:password], '123456789012') })
   if (user!=nil)

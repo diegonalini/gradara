@@ -27,16 +27,16 @@ define([
 	    },*/
 	    
 	    updateLoggedState: function () {
-	        	if (window.app.user.get('isLogged')){
-	        		Backbone.trigger('login');
-	        		Backbone.trigger('flash:success','Successfully logged in');
-	        	}else{
-	        		Backbone.trigger('logout');
-	        		Backbone.trigger('flash:success','Successfully logged out');
-	        	}
-	        	$.ajaxSetup (
-   					{headers: {'ACCESS_TOKEN':window.app.user.get('token')}}
-				);
+	        if (window.app.user.get('isLogged')) {
+                Backbone.trigger('login');
+                Backbone.trigger('flash:success','Successfully logged in');
+            } else {
+                Backbone.trigger('logout');
+                Backbone.trigger('flash:success', 'Successfully logged out');
+            }
+            $.ajaxSetup(
+                {headers: {'ACCESS_TOKEN': window.app.user.get('token')}}
+            );
 	        window.app.user.save();
 	    },
 
@@ -83,8 +83,14 @@ define([
 		},
 
 		cycle: function () {
+            var isneedtoKillAjax = true;
+            setTimeout(function(){
+                checkAjaxKill();
+            },700);
+                
 			//console.log("User.cycle "+JSON.stringify(window.app.user));
-			$.getJSON('/islogged/'+window.app.user.get('token'), function(data) {
+			var myAjaxCall = $.getJSON('/islogged/'+window.app.user.get('token'), function(data) {
+                isneedtoKillAjax = false;
 				$.each(data, function(key, val) {
 					//console.log("User.cycle 2 "+val+" "+JSON.stringify(window.app.user));
 					if (key=='valid'){ 
@@ -106,9 +112,18 @@ define([
 					//console.log("User.cycle 4 "+val+" "+JSON.stringify(window.app.user));
 				});
 			}).error(function() { 
-				window.app.user.set({networkLink: false});
+                window.app.user.set({networkLink: false});
 				$(".fadeMe").show();
 			});
+            
+            function checkAjaxKill(){
+                if (isneedtoKillAjax){
+                    myAjaxCall.abort();
+                    //console.log("killing");
+                    //window.app.user.set({networkLink: false});
+				    //$(".fadeMe").show();
+                }
+            }
 		}
 	});
 });
