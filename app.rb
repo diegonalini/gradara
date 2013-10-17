@@ -10,6 +10,12 @@ require 'rack/ssl-enforcer'
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 use Rack::SslEnforcer   if (url!=nil) #, :only => %r{^/login/}
 
+
+before_filter :redirect_to_ssl
+def redirect_to_ssl
+    redirect_to :protocol => "https://" unless (request.ssl?)
+end
+
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 url='mongodb://127.0.0.1:27017/' if url==nil
 DB = Mongo::Connection.from_uri( url+'gradaradb' ).db("gradaradb",:pool_size => 5, :timeout => 5)
