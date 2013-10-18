@@ -20,7 +20,7 @@ configure :production do
 end
 
 before do
- # redirect_to :protocol => "https://" unless (request.ssl?)
+  redirect to request.url.gsub(/^https/, "http") unless (request.ssl?)
 end
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
@@ -73,14 +73,9 @@ end
 get '/' do
   p request.url
   p '-----------------------------------------------------'
-  if request.secure? == false
-    redirect request.url.gsub(/^https/, "http") + "index.html"
-  else
-    #pass # continue execution
-    send_file File.expand_path('index.html', settings.public_folder)
-  end   
+   
   #haml :index, :attr_wrapper => '"', :locals => {:title => 'haii'}
-  #send_file File.expand_path('index.html', settings.public_folder)
+  send_file File.expand_path('index.html', settings.public_folder)
 end
 
 
