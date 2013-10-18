@@ -27,10 +27,7 @@ configure :production do
 end
 
 before do
-  #redirect to request.url.gsub(/^https/, "http") unless (request.ssl?)
-    
-    ssl_whitelist = ['/calendar.ics']
-    if settings.force_ssl && !request.secure? && !ssl_whitelist.include?(request.path_info)
+    if settings.force_ssl && !request.secure?
       content_type :json
       halt json_status 400, "Please use SSL at https://#{settings.host}"
     end
@@ -84,8 +81,12 @@ def extendSession(token)
 end
 
 get '/' do
-  #haml :index, :attr_wrapper => '"', :locals => {:title => 'haii'}
-  send_file File.expand_path('index.html', settings.public_folder)
+  if request.ssl? || !settings.force_ssl then
+    #haml :index, :attr_wrapper => '"', :locals => {:title => 'haii'}
+    send_file File.expand_path('index.html', settings.public_folder)
+  else 
+    send_file File.expand_path('index2.html', settings.public_folder)
+  end
 end
 
 
