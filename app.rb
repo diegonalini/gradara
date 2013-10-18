@@ -5,25 +5,35 @@ require 'mail'
 require 'mongo'
 require 'json'
 require 'sinatra/security'
-require 'rack/ssl'
+#require 'rack/ssl'
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 #use Rack::SslEnforcer   if (url!=nil) #, :only => %r{^/login/}
 
-set :sessions, true
+#set :sessions, true
 
 configure :development, :test do
   p 'TEST'
+  set :host, 'localhost:9292'
+  set :force_ssl, false
 end
 configure :production do
-  use Rack::Ssl 
-  use Rack::Session::Cookie, :expire_after => 1.week, :secret => 'ABCDE'
+  #use Rack::Ssl 
+  #use Rack::Session::Cookie, :expire_after => 1.week, :secret => 'ABCDE'
   #set :sessions, true
+  set :host, 'gradara-dn70.rhcloud.com'
+  set :force_ssl, true
   p 'PROD'
 end
 
 before do
   #redirect to request.url.gsub(/^https/, "http") unless (request.ssl?)
+    
+    ssl_whitelist = ['/calendar.ics']
+    if settings.force_ssl && !request.secure? && !ssl_whitelist.include?(request.path_info)
+      content_type :json
+      halt json_status 400, "Please use SSL at https://#{settings.host}"
+    end
 end
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
