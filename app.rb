@@ -5,7 +5,7 @@ require 'mail'
 require 'mongo'
 require 'json'
 require 'sinatra/security'
-require 'rack/ssl-enforcer'
+require 'rack/ssl'
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
 #use Rack::SslEnforcer   if (url!=nil) #, :only => %r{^/login/}
@@ -16,7 +16,8 @@ configure :development, :test do
   p 'TEST'
 end
 configure :production do
-  use Rack::SslEnforcer 
+  use Rack::Ssl 
+  use Rack::Session::Cookie, :expire_after => 1.week, :secret => 'ABCDE'
   #set :sessions, true
   p 'PROD'
 end
