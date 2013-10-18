@@ -16,11 +16,13 @@ configure :development, :test do
   p 'TEST'
 end
 configure :production do
+  use Rack::SslEnforcer 
+  #set :sessions, true
   p 'PROD'
 end
 
 before do
-  redirect to request.url.gsub(/^https/, "http") unless (request.ssl?)
+  #redirect to request.url.gsub(/^https/, "http") unless (request.ssl?)
 end
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
@@ -71,9 +73,6 @@ def extendSession(token)
 end
 
 get '/' do
-  p request.url
-  p '-----------------------------------------------------'
-   
   #haml :index, :attr_wrapper => '"', :locals => {:title => 'haii'}
   send_file File.expand_path('index.html', settings.public_folder)
 end
