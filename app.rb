@@ -5,12 +5,8 @@ require 'mail'
 require 'mongo'
 require 'json'
 require 'sinatra/security'
-#require 'rack/ssl'
 
 url=ENV['OPENSHIFT_MONGODB_DB_URL']
-#use Rack::SslEnforcer   if (url!=nil) #, :only => %r{^/login/}
-
-#set :sessions, true
 
 configure :development, :test do
   p 'TEST'
@@ -18,12 +14,9 @@ configure :development, :test do
   set :force_ssl, false
 end
 configure :production do
-  #use Rack::Ssl 
-  #use Rack::Session::Cookie, :expire_after => 1.week, :secret => 'ABCDE'
-  #set :sessions, true
+  p 'PROD'
   set :host, 'gradara-dn70.rhcloud.com'
   set :force_ssl, true
-  p 'PROD'
 end
 
 before do
@@ -81,11 +74,10 @@ def extendSession(token)
 end
 
 get '/' do
-  if request.ssl? || !settings.force_ssl then
-    #haml :index, :attr_wrapper => '"', :locals => {:title => 'haii'}
-    send_file File.expand_path('index.html', settings.public_folder)
-  else 
+  if settings.force_ssl && !request.ssl? then
     send_file File.expand_path('index2.html', settings.public_folder)
+  else 
+    send_file File.expand_path('index.html', settings.public_folder)
   end
 end
 
