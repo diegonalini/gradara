@@ -74,7 +74,7 @@ get '/' do
   p request.url
   p '-----------------------------------------------------'
   if request.secure? == false
-    redirect request.url.gsub(/^https/, "http")
+    redirect request.url.gsub(/^https/, "http") + "index.html"
   else
     #pass # continue execution
     send_file File.expand_path('index.html', settings.public_folder)
