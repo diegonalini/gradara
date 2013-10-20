@@ -74,10 +74,13 @@ def extendSession(token)
 end
 
 get '/' do 
+  p 'pippo0'
   if settings.force_ssl and not request.secure?
+    p 'pippo1'
     send_file File.expand_path('index2.html', settings.public_folder)
   else 
-    send_file File.expand_path('index2.html', settings.public_folder)
+    p 'pippo2'
+    send_file File.expand_path('index.html', settings.public_folder)
   end
 end
 
