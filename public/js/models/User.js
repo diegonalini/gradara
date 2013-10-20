@@ -86,7 +86,7 @@ define([
             var isneedtoKillAjax = true;
             setTimeout(function(){
                 checkAjaxKill();
-            },700);
+            },1990);
                 
 			//console.log("User.cycle "+JSON.stringify(window.app.user));
 			var myAjaxCall = $.getJSON('/islogged/'+window.app.user.get('token'), function(data) {
