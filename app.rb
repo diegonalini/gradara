@@ -15,7 +15,7 @@ configure :development, :test do
 end
 configure :production do
   p 'PROD'
-  set :host, 'gradara-dn70.rhcloud.com'
+  set :host, '?.rhcloud.com'
   set :force_ssl, true
 end
 
