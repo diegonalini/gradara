@@ -73,7 +73,7 @@ def extendSession(token)
   end
 end
 
-get '/' do
+get '/' do 
   if settings.force_ssl and not request.secure? then
     send_file File.expand_path('index2.html', settings.public_folder)
   else 
