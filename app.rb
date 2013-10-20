@@ -21,8 +21,8 @@ end
 
 before do
     if settings.force_ssl && !request.secure?
-      content_type :json
-      halt json_status 400, "Please use SSL at https://#{settings.host}"
+      #content_type :json
+      #halt json_status 400, "Please use SSL at https://#{settings.host}"
     end
 end
 
